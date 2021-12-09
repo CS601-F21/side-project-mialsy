@@ -1,6 +1,7 @@
 package com.mialsy.coc.controllers;
 
-import com.mialsy.coc.models.SocketMsg;
+import com.mialsy.coc.message.StatusMsg;
+import com.mialsy.coc.models.Player;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -8,12 +9,11 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CharacterController {
 
-    @MessageMapping("/stats")
-    @SendTo("/topic/character")
-    public SocketMsg greeting(SocketMsg message) throws Exception {
-        Thread.sleep(1000); // simulated delay
-        System.out.println("message: " + message);
-        return message;
+    @MessageMapping("/status")
+    @SendTo("/topic/characters")
+    public Iterable<Player> changeStatus(StatusMsg message) throws Exception {
+        // update in db
+        return null;
     }
 
 }
