@@ -1,14 +1,18 @@
 package com.mialsy.coc.models;
 
 import com.mialsy.coc.pojos.PlayerPojo;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "player")
 public class Player {
     @Id
@@ -67,6 +71,7 @@ public class Player {
                 .luck(this.luck)
                 .description(this.description)
                 .occupation(this.occupation)
+                .occupied(this.occupied)
                 .build();
     }
 }
