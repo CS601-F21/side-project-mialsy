@@ -3,6 +3,7 @@ import Form from "antd/lib/form";
 import React from "react";
 
 const FormPrototype = (props) => {
+    console.log(props)
     const onFinish = (values) => {
         props.onFinish(values);
         props.next();
@@ -29,10 +30,17 @@ const FormPrototype = (props) => {
                     span: 16,
                     }}
                 >
+                    <div>
                     <Button type="primary" htmlType="submit">
-                    Next
+                        Next
                     </Button>
+                    {
+                        props.prev &&
+                        <Button style={{paddingLeft: 10}} onClick={() => props.prev()}>Prev</Button>
+                    }
+                    </div>
                 </Form.Item>
+                
             </Form>
         </div>
     );

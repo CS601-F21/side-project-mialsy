@@ -19,14 +19,12 @@ const CreateGamePage = () => {
 
     const steps = [
         {
-            title: 'Input Your Infomation',
-            content: <CreateKeeperStep next={next} />,
-        },
-        {
             title: 'Input Game Infomation',
             content: <InputGameInfoStep next={next} />,
-        },
-        {
+        }, {
+            title: 'Input Your Infomation',
+            content: <CreateKeeperStep next={next} prev={prev}/>,
+        }, {
             title: 'Create Characters',
             content: <CreateCharacterStep next={next} />,
         }, {

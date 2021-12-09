@@ -1,44 +1,32 @@
-import { Button, Input } from "antd";
+import { Input } from "antd";
 import Form from "antd/lib/form";
 import React from "react";
+import FormPrototype from "./FormPrototype";
 
-const InputGameInfoStep = () => {
+const InputGameInfoStep = (props) => {
+    const storedValue = localStorage.getItem("gameName");
+    console.log(storedValue);
+
+    const content = (<Form.Item 
+        label="Game Name"
+        name="gameName"
+        rules={[
+            {
+              required: true,
+              message: "Please input the game name!",
+            },
+          ]}
+        >
+        <Input defaultValue={storedValue} />
+    </Form.Item>);
+
+    const onFinish = (value) => {
+        localStorage.setItem("gameName", value.gameName);
+        console.log(value);
+    }
+
     return (
-        <div>
-            <Form
-                labelCol={{
-                    span: 4,
-                }}
-                wrapperCol={{
-                    span: 14,
-                }}
-                layout="horizontal"
-            >
-                <Form.Item 
-                    label="Game Room Name"
-                    name="name"
-                    rules={[
-                        {
-                          required: true,
-                          message: "Please input the game room name!",
-                        },
-                      ]}
-                    >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                    Next
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+        <FormPrototype next={props.next} content={content} onFinish={onFinish}/>
     );
 }
 

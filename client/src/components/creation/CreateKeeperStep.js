@@ -22,7 +22,7 @@ const CreateKeeperStep = (props) => {
     }
 
     return (
-        <FormPrototype next={props.next} content={content} onFinish={onFinish}/>
+        <FormPrototype next={props.next} prev={props.prev} content={content} onFinish={onFinish}/>
     );
 }
 
