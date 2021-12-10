@@ -12,10 +12,10 @@ public class DiceController {
     @MessageMapping("/dice")
     @SendTo("/topic/dice")
     public SimpleMsg rollDice(DiceMsg diceMsg) {
-        return getSimpleMsg(diceMsg);
+        return getMessage(diceMsg);
     }
 
-    private SimpleMsg getSimpleMsg(DiceMsg diceMsg) {
+    private SimpleMsg getMessage(DiceMsg diceMsg) {
         SimpleMsg msg = new SimpleMsg();
         msg.setBy(diceMsg.getBy());
 

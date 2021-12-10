@@ -1,5 +1,6 @@
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import Form from "antd/lib/form";
+import axios from "axios";
 import React from "react";
 import FormPrototype from "./FormPrototype";
 
@@ -18,7 +19,23 @@ const CreateKeeperStep = (props) => {
     </Form.Item>);
 
     const onFinish = (value) => {
-        console.log(value);
+        const data = {
+            name: value.plname,
+            isKeeper: true,
+            occupied: true
+        };
+
+        const gameId = sessionStorage.getItem("gameId");
+        
+        axios.post(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, data)
+        .then((res) => {
+            sessionStorage.setItem("kpId", res.data.id);
+            sessionStorage.setItem("kpName", res.data.name);
+            props.next();
+        }).catch((err) => { 
+            console.log(err);
+            message.error("Cannot create keeper at this time, please try again later.");
+        });
     }
 
     return (

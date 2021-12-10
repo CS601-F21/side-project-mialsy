@@ -1,4 +1,4 @@
-import { Button, message, Steps } from "antd";
+import { Steps } from "antd";
 import React, { useState } from "react";
 import CreateCharacterStep from "./CreateCharacterStep";
 import CreateKeeperStep from "./CreateKeeperStep";
@@ -42,23 +42,6 @@ const CreateGamePage = () => {
             </Steps>
 
             <div>{steps[current].content}</div>
-            {/* <div>
-                {current < steps.length - 1 && (
-                <Button type="primary" onClick={() => next()}>
-                    Next
-                </Button>
-                )}
-                {current === steps.length - 1 && (
-                <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                    Start!
-                </Button>
-                )}
-                {current > 0 && (
-                <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                    Previous
-                </Button>
-                )}
-            </div> */}
         </div>
     );
 }

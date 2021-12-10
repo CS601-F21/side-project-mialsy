@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @Builder
 public class StatusMsg {
-    private int plId;
-    private int hpChange;
-    private int mpChange;
-    private int sanChange;
-    private int luckChange;
+    private Long plId;
+    private Integer hpChange;
+    private Integer mpChange;
+    private Integer sanChange;
+    private Integer luckChange;
 }

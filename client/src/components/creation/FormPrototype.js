@@ -6,7 +6,6 @@ const FormPrototype = (props) => {
     console.log(props)
     const onFinish = (values) => {
         props.onFinish(values);
-        props.next();
     }
 
     return (
@@ -36,7 +35,7 @@ const FormPrototype = (props) => {
                     </Button>
                     {
                         props.prev &&
-                        <Button style={{paddingLeft: 10}} onClick={() => props.prev()}>Prev</Button>
+                        <Button style={{marginLeft: 20}} onClick={() => props.prev()}>Prev</Button>
                     }
                     </div>
                 </Form.Item>
