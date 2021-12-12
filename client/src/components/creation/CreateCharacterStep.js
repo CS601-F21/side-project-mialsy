@@ -1,5 +1,6 @@
-import { Button, Input, Form, Divider, InputNumber, Radio } from "antd";
+import { Button, Input, Form, Divider, InputNumber, Radio, Message } from "antd";
 import FormPrototype from "./FormPrototype";
+import axios from "axios";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const CreateCharacterStep = (props) => {
@@ -120,7 +121,19 @@ const CreateCharacterStep = (props) => {
     );
 
     const onFinish = (values) => {
-        console.log(values);
+        const players = values['players']
+        players.map((player) => {
+            player["isKeeper"] = false
+            player["occupied"] = false
+        })
+        const gameId = sessionStorage.getItem("gameId");
+        axios.post(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`, players)
+        .then((res) => {
+            props.next();
+        }).catch((err) => { 
+            console.log(err);
+            message.error("Cannot create keeper at this time, please try again later.");
+        });
     }
 
     return (
