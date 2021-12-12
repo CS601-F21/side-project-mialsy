@@ -26,7 +26,7 @@ const CreateGamePage = () => {
             content: <CreateKeeperStep next={next} prev={prev}/>,
         }, {
             title: 'Create Characters',
-            content: <CreateCharacterStep next={next} />,
+            content: <CreateCharacterStep next={next} prev={prev} />,
         }, {
             title: 'Success!',
             content: <div>Start game now!</div>

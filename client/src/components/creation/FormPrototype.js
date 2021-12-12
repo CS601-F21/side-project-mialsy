@@ -8,15 +8,15 @@ const FormPrototype = (props) => {
         props.onFinish(values);
     }
 
+    const formItemLayout = {
+        labelCol: { span: 6 },
+        wrapperCol: { span: 14 },
+    };
+
     return (
         <div>
             <Form
-                labelCol={{
-                    span: 4,
-                }}
-                wrapperCol={{
-                    span: 14,
-                }}
+                {...formItemLayout}
                 layout="horizontal"
                 onFinish={onFinish}
             >
@@ -24,10 +24,6 @@ const FormPrototype = (props) => {
                     props.content
                 }
                 <Form.Item
-                    wrapperCol={{
-                    offset: 4,
-                    span: 16,
-                    }}
                 >
                     <div>
                     <Button type="primary" htmlType="submit">
