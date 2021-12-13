@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CreateCharacterStep from "./CreateCharacterStep";
 import CreateKeeperStep from "./CreateKeeperStep";
 import InputGameInfoStep from "./InputGameInfoStep";
+import GameLinkStep  from "./GameLinkStep";
 
 const { Step } = Steps;
 
@@ -29,7 +30,7 @@ const CreateGamePage = () => {
             content: <CreateCharacterStep next={next} prev={prev} />,
         }, {
             title: 'Success!',
-            content: <div>Start game now!</div>
+            content: <GameLinkStep />
         }
     ];
 

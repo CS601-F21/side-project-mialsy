@@ -1,4 +1,4 @@
-import { Button, Input, Form, Divider, InputNumber, Radio, Message } from "antd";
+import { Button, Input, Form, Divider, InputNumber, Radio, message } from "antd";
 import FormPrototype from "./FormPrototype";
 import axios from "axios";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
