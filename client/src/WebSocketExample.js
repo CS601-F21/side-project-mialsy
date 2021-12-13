@@ -56,12 +56,13 @@ function App() {
   }
 
   const onSubmit = () => {
+    console.log(stompClient);
     stompClient.send("/app/hello", {}, JSON.stringify({'msgBody': inputVal}));
   }
 
   const onCharacterChange = () => {
     console.log(inputVal2)
-    stompClient.send("/app/stats", {}, JSON.stringify({'msgBody' : inputVal2}));
+    stompClient.send("/app/stats", {}, JSON.stringify({'msgBody' : inputVal2, 'by': '122'}));
   }
 
   return (
