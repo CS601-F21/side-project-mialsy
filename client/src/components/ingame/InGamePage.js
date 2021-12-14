@@ -2,16 +2,20 @@ import React, {useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
-import {Button, message, Row, Col, Card, Divider} from 'antd';
+import {Button, message, Row, Col, Card, Divider, Modal, Input } from 'antd';
 import axios from "axios";
 import 'react-chatbox-component/dist/style.css';
 import { ChatBox } from 'react-chatbox-component';
+import rollADie from 'roll-a-die';
+import droll from 'droll';
 
 const InGamePage = (props) => {
     const { state } = useLocation();
     const { plId, isKeeper } = state || {};
     const [ combinedMessages, setMessages ] = useState([]);
     const [ players, setPlayers ] = useState([]);
+    const [ isDiceModalVisible, setDiceModalVisible ] = useState(false);
+    const [ diceInput, setDiceInput ] = useState('');
 
     
     const [stompClient, setClient] = useState(undefined);
@@ -74,17 +78,37 @@ const InGamePage = (props) => {
         } 
     }
 
+    const rollDice = () => {
+      setDiceModalVisible(true);
+
+    }
+
+    const handleDiceRolling = () => {
+      setDiceModalVisible(false);
+      const total = droll.roll(diceInput).total;
+      console.log(document.getElementById('dice-roll'));
+      rollADie({element: document.getElementById('dice-roll'), numberOfDice:1, callback:() => {}});
+      setDiceInput('');
+    }
+
+    const handleDiceCancel = () => {
+      setDiceModalVisible(false);
+      setDiceInput('');
+    }
+
     const onSubmit= (msg) => {        
          stompClient.send("/app/message/29", {"name": "mialsy"}, JSON.stringify({'msgBody' : msg, 'by': '122'}));         
     }
-    console.log(players);
 
     return (
     <> 
+      <Modal title="Dice Modal" visible={isDiceModalVisible} onOk={handleDiceRolling} onCancel={handleDiceCancel}>
+        <Input placeholder="Dice input here..." value={diceInput} onChange={(event) => {setDiceInput(event.target.value)}}/>
+      </Modal>
         <Button type="primary" onClick={() => toggleConnection()}>{stompClient ? "Disconnect" : "Connect"}</Button>
-        
+        <Button type="primary" onClick={() => rollDice()}>Roll the Dice</Button>
         <>
-        <Row>
+        <Row type="flex">
       <Col span={6}>        
       {players.map((player) => {
 
@@ -102,9 +126,12 @@ return !player['isKeeper'] &&
 <Divider type="vertical" />
 </>)
 })}</Col>
-      <Col span={18}><ChatBox messages={combinedMessages} onSubmit={onSubmit} /></Col>
+      <Col span={18}>
+        <ChatBox messages={combinedMessages} onSubmit={onSubmit} />
+        <div id='dice-roll' z-index={289} width="100%" height="100%"></div>
+        </Col>
     </Row>
-            
+    
         </>
     </>);
 }
