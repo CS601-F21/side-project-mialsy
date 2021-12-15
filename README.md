@@ -26,3 +26,15 @@ The frontend is built with react, with stomp client to send messages to socket c
 
 The backend is built with Spring Boot. For simplicity of the code, the Lombok library was used for code generation of getters, setters, and builder of the models and POJOs.
 
+## Run Code
+- Backend(database config and setup required):
+```
+cd coc
+java -jar  coc-0.0.1.jar
+```
+- Frontend:
+```
+cd client
+npm install
+npm start
+```
