@@ -58,7 +58,7 @@ const GameMainPage = (props) => {
 
 
     return (
-        <div style={{ margin: 50 }}>
+        <div style={{ margin: 50, color: "white" }}>
             <h1>You are joining game {gameName}</h1>
             <div>Choose from below characters</div>
             {players.map((player) => {
