@@ -11,6 +11,7 @@
 	<groupId>com.mialsy</groupId>
 	<artifactId>coc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>coc</name>
 	<description>CoC Game Helper Web App</description>
 	<properties>

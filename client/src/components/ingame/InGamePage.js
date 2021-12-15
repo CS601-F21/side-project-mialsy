@@ -158,7 +158,7 @@ const InGamePage = (props) => {
                       <p>{`Description: ${player["description"] ? player["description"] : "NA"}`}</p>
                     </div>
                   </Card>
-                  <Divider type="vertical" />
+                  <Divider type="horizontal" />
                 </>)
             })}</Col>
           <Col span={18}>

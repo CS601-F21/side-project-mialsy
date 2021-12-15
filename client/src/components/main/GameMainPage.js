@@ -80,7 +80,7 @@ const GameMainPage = (props) => {
                             </div>
                             <Button type="link" onClick={onClick} id={player['id']}>Start Game as this role</Button>
                         </Card>
-                        <Divider type="vertical" />
+                        <Divider type="horizontal" />
                     </>)
             })}
         </div>);
