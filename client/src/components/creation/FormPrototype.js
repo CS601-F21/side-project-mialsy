@@ -13,7 +13,7 @@ const FormPrototype = (props) => {
     };
 
     return (
-        <div>
+        <div style={{marginTop: 50}}>
             <Form
                 {...formItemLayout}
                 layout="horizontal"
@@ -25,16 +25,12 @@ const FormPrototype = (props) => {
                 <Form.Item
                 >
                     <div>
-                    <Button type="primary" htmlType="submit">
-                        Next
-                    </Button>
-                    {
-                        props.prev &&
-                        <Button style={{marginLeft: 20}} onClick={() => props.prev()}>Prev</Button>
-                    }
+                        <Button type="primary" htmlType="submit">
+                            Next
+                        </Button>
                     </div>
                 </Form.Item>
-                
+
             </Form>
         </div>
     );

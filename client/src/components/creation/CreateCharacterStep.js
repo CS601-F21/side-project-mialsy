@@ -38,9 +38,9 @@ const CreateCharacterStep = (props) => {
                                 fieldKey={[fieldKey, 'sex']}
                             >
                                 <Radio.Group>
-                                    <Radio.Button value="female">Female</Radio.Button> 
-                                    <Radio.Button value="male">Male</Radio.Button> 
-                                    <Radio.Button value="other">Other</Radio.Button> 
+                                    <Radio.Button value="female">Female</Radio.Button>
+                                    <Radio.Button value="male">Male</Radio.Button>
+                                    <Radio.Button value="other">Other</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
 
@@ -60,7 +60,7 @@ const CreateCharacterStep = (props) => {
                                 fieldKey={[fieldKey, 'hp']}
                                 rules={[{ required: true, message: 'Please input hit point' }]}
                             >
-                                <InputNumber min={0} max={100}/>
+                                <InputNumber min={0} max={100} />
                             </Form.Item>
 
                             <Form.Item
@@ -70,7 +70,7 @@ const CreateCharacterStep = (props) => {
                                 fieldKey={[fieldKey, 'mp']}
                                 rules={[{ required: true, message: 'Please input magic point' }]}
                             >
-                                <InputNumber min={0} max={100}/>
+                                <InputNumber min={0} max={100} />
                             </Form.Item>
 
                             <Form.Item
@@ -80,7 +80,7 @@ const CreateCharacterStep = (props) => {
                                 fieldKey={[fieldKey, 'sanity']}
                                 rules={[{ required: true, message: 'Please input sanity' }]}
                             >
-                                <InputNumber min={0} max={100}/>
+                                <InputNumber min={0} max={100} />
                             </Form.Item>
 
                             <Form.Item
@@ -90,7 +90,7 @@ const CreateCharacterStep = (props) => {
                                 fieldKey={[fieldKey, 'luck']}
                                 rules={[{ required: true, message: 'Please input luck' }]}
                             >
-                                <InputNumber min={0} max={100}/>
+                                <InputNumber min={0} max={100} />
                             </Form.Item>
 
                             <Form.Item
@@ -112,11 +112,11 @@ const CreateCharacterStep = (props) => {
                     ))}
                     <Form.Item>
                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                            Add field
+                            Add a new character
                         </Button>
                     </Form.Item>
                 </>
-                )}
+            )}
         </Form.List>
     );
 
@@ -125,24 +125,24 @@ const CreateCharacterStep = (props) => {
         players.map((player) => {
             const sex = player["sex"];
             const name = player["name"];
-            const avatarUrl = (!sex || sex === "other") ?  `https://avatars.dicebear.com/api/pixel-art/${name}.svg` :
-             `https://avatars.dicebear.com/api/${sex}/${name}.svg`;
+            const avatarUrl = (!sex || sex === "other") ? `https://avatars.dicebear.com/api/pixel-art/${name}.svg` :
+                `https://avatars.dicebear.com/api/${sex}/${name}.svg`;
             player["isKeeper"] = false
             player["occupied"] = false
             player["avatar"] = avatarUrl;
         })
         const gameId = sessionStorage.getItem("gameId");
         axios.post(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`, players)
-        .then((res) => {
-            props.next();
-        }).catch((err) => { 
-            console.log(err);
-            message.error("Cannot create keeper at this time, please try again later.");
-        });
+            .then((res) => {
+                props.next();
+            }).catch((err) => {
+                console.log(err);
+                message.error("Cannot create keeper at this time, please try again later.");
+            });
     }
 
     return (
-        <FormPrototype next={props.next} prev={props.prev} content={content} onFinish={onFinish}/>
+        <FormPrototype next={props.next} prev={props.prev} content={content} onFinish={onFinish} />
     );
 }
 

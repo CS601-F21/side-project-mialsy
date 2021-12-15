@@ -11,14 +11,14 @@ const DiceButtons = (props) => {
     const gameId = props.gameId;
 
     const handleDiceRolling = (diceType) => {
-        rollADie({element: document.getElementById('dice-roll'), numberOfDice:1, callback:() => {}});
-        stompClient.send(`/app/dice/${gameId}`, {}, JSON.stringify({'diceType' : diceType, 'byId': plId}));         
+        rollADie({ element: document.getElementById('dice-roll'), numberOfDice: 1, callback: () => { } });
+        stompClient.send(`/app/dice/${gameId}`, {}, JSON.stringify({ 'diceType': diceType, 'byId': plId }));
     }
 
     return (
         <Affix>
             <h4>Roll dice here</h4>
-            {dices.map(dice => <Button style={{marginLeft: 2}} type="primary" onClick={() => handleDiceRolling(dice)}>{dice}</Button>)}
+            {dices.map(dice => <Button style={{ marginLeft: 2 }} type="primary" onClick={() => handleDiceRolling(dice)}>{dice}</Button>)}
         </Affix>
 
     )

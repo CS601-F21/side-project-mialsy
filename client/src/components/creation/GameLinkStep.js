@@ -1,6 +1,8 @@
-import { Button } from "antd";
+import { Button, Typography } from "antd";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+
+const { Paragraph } = Typography;
 
 const GameLinkStep = () => {
 
@@ -11,13 +13,15 @@ const GameLinkStep = () => {
     const navigate = useNavigate();
 
     const onClick = () => {
-        navigate(`../ingame/${encodedGameId}`, 
-        {state: { plName: sessionStorage.getItem("kpName"),plId: sessionStorage.getItem("kpId"), isKeeper: true}})
+        navigate(`../ingame/${encodedGameId}`,
+            { state: { plName: sessionStorage.getItem("kpName"), plId: sessionStorage.getItem("kpId"), isKeeper: true } })
     }
+
+    const sharedUrl = `localhost:3000/game/${encodedGameId}`;
 
     return (
         <div>
-            <h2>You can share the game with the link: {`localhost:3000/game/${encodedGameId}`} </h2>
+            <div>You can share the game with the link: <Paragraph copyable={{ text: sharedUrl }}>{sharedUrl}</Paragraph></div>
             <Button type="primary" onClick={onClick}>Join Game</Button>
         </div>
     );

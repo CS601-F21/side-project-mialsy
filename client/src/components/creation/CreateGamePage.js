@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import CreateCharacterStep from "./CreateCharacterStep";
 import CreateKeeperStep from "./CreateKeeperStep";
 import InputGameInfoStep from "./InputGameInfoStep";
-import GameLinkStep  from "./GameLinkStep";
+import GameLinkStep from "./GameLinkStep";
 
 const { Step } = Steps;
 
@@ -24,7 +24,7 @@ const CreateGamePage = () => {
             content: <InputGameInfoStep next={next} />,
         }, {
             title: 'Input Your Infomation',
-            content: <CreateKeeperStep next={next} prev={prev}/>,
+            content: <CreateKeeperStep next={next} prev={prev} />,
         }, {
             title: 'Create Characters',
             content: <CreateCharacterStep next={next} prev={prev} />,
@@ -35,10 +35,10 @@ const CreateGamePage = () => {
     ];
 
     return (
-        <div>
+        <div style={{margin: 50}}>
             <Steps current={current}>
                 {steps.map(item => (
-                <Step key={item.title} title={item.title} />
+                    <Step key={item.title} title={item.title} />
                 ))}
             </Steps>
 

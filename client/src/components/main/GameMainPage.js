@@ -7,7 +7,7 @@ import axios from "axios";
 import Meta from 'antd/lib/card/Meta';
 
 const GameMainPage = (props) => {
-    const [ players, setPlayers ] = useState([])
+    const [players, setPlayers] = useState([])
 
     const navigate = useNavigate();
 
@@ -20,65 +20,62 @@ const GameMainPage = (props) => {
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`)
-        .then((res) => {
-            setPlayers(res.data);
-        }).catch((err) => { 
-            console.log(err);
-        });
+            .then((res) => {
+                setPlayers(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
     }, [])
 
     const onClick = (event) => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`)
-        .then((
-            (res) => {
-                const player = res.data.find(ele => ele['id'].toString() === event.target.parentElement.id.toString());
-                if (player?.['occupied'] === false) {
-                    player['occupied'] = true;
-                    axios.post(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, player)
-                    .then((res) => {
-                        console.log(res);
-                    });
-                    navigate(`/ingame/${encodedGameId}`, {state:{plId:event.target.parentElement.id,isKeeper: false}})
-                    
-                } else {
-                    message.error("This role has been occupied, try another one please");
-                    setPlayers(res.data);
+            .then((
+                (res) => {
+                    const player = res.data.find(ele => ele['id'].toString() === event.target.parentElement.id.toString());
+                    if (player?.['occupied'] === false) {
+                        player['occupied'] = true;
+                        axios.post(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, player)
+                            .then((res) => {
+                                console.log(res);
+                            });
+                        navigate(`/ingame/${encodedGameId}`, { state: { plId: event.target.parentElement.id, isKeeper: false } })
+
+                    } else {
+                        message.error("This role has been occupied, try another one please");
+                        setPlayers(res.data);
+                    }
                 }
-            }
-        ))
+            ))
     }
 
 
-
-
-
     return (
-    <>
-    <h1>You are joining game {gameId}</h1>
-    {players.map((player) => {
+        <>
+            <h1>You are joining game {gameId}</h1>
+            {players.map((player) => {
 
-        return !player['isKeeper'] && !player["occupied"] &&
-        (<>
-        <Card style={{ width: 300 }}>
-        <Meta
-            title={player["name"]}
-            avatar={<Avatar src={player["avatar"]} />}
-            />
-            <div>
-            <p>{`Sex: ${player["sex"]}`}</p>
-            <p>{`Occupation: ${player["occupation"]}`}</p>
-            <p>{`HP: ${player["hp"]}`}</p>
-            <p>{`MP: ${player["mp"]}`}</p>
-            <p>{`Luck: ${player["luck"]}`}</p>
-            <p>{`Sanity: ${player["sanity"]}`}</p>
-            <p>{`Description: ${player["description"]}`}</p>
-            </div>
-          <Button type="link" onClick={onClick} id={player['id']}>Start Game as this role</Button>
-        </Card>
-        <Divider type="vertical" />
-        </>)
-})}
-    </>);
+                return !player['isKeeper'] && !player["occupied"] &&
+                    (<>
+                        <Card style={{ width: 300 }}>
+                            <Meta
+                                title={player["name"]}
+                                avatar={<Avatar src={player["avatar"]} />}
+                            />
+                            <div>
+                                <p>{`Sex: ${player["sex"]}`}</p>
+                                <p>{`Occupation: ${player["occupation"]}`}</p>
+                                <p>{`HP: ${player["hp"]}`}</p>
+                                <p>{`MP: ${player["mp"]}`}</p>
+                                <p>{`Luck: ${player["luck"]}`}</p>
+                                <p>{`Sanity: ${player["sanity"]}`}</p>
+                                <p>{`Description: ${player["description"]}`}</p>
+                            </div>
+                            <Button type="link" onClick={onClick} id={player['id']}>Start Game as this role</Button>
+                        </Card>
+                        <Divider type="vertical" />
+                    </>)
+            })}
+        </>);
 }
 
 export default GameMainPage;
