@@ -9,7 +9,6 @@ import 'react-chatbox-component/dist/style.css';
 import { ChatBox } from 'react-chatbox-component';
 import DiceButtons from './DiceButtons';
 import Meta from 'antd/lib/card/Meta';
-import gameoverImg from '../../static/gameover.png';
 
 const InGamePage = (props) => {
   const { state } = useLocation();
@@ -144,13 +143,13 @@ const InGamePage = (props) => {
                       avatar={<Avatar src={player["avatar"]} />}
                     />
                     <div>
-                      <p>{`Sex: ${player["sex"]}`}</p>
-                      <p>{`Occupation: ${player["occupation"]}`}</p>
+                      <p>{`Sex: ${player["sex"] ? player["sex"] : "NA"}`}</p>
+                      <p>{`Occupation: ${player["occupation"] ? player["occupation"] : "NA"}`}</p>
                       <p>{`HP: ${player["hp"]}`}</p>
                       <p>{`MP: ${player["mp"]}`}</p>
                       <p>{`Luck: ${player["luck"]}`}</p>
                       <p>{`Sanity: ${player["sanity"]}`}</p>
-                      <p>{`Description: ${player["description"]}`} </p>
+                      <p>{`Description: ${player["description"] ? player["description"] : "NA"}`}</p>
                     </div>
                   </Card>
                   <Divider type="vertical" />

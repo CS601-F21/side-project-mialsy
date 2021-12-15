@@ -7,10 +7,10 @@ import axios from "axios";
 import Meta from 'antd/lib/card/Meta';
 
 const GameMainPage = (props) => {
-    const [players, setPlayers] = useState([])
+    const [players, setPlayers] = useState([]);
+    const [gameName, setGameName] = useState(``);
 
     const navigate = useNavigate();
-
 
     const { pathname } = useLocation();
 
@@ -24,6 +24,14 @@ const GameMainPage = (props) => {
                 setPlayers(res.data);
             }).catch((err) => {
                 console.log(err);
+                message.error("Cannot retrive players at this time, please try again later");
+            });
+        axios.get(`${process.env.REACT_APP_BASE_URL}/game?id=${gameId}`)
+            .then(res => {
+                setGameName(res.data.name);
+            }).catch((err) => {
+                console.log(err);
+                message.error("Cannot retrive game name at this time, please try again later");
             });
     }, [])
 
@@ -50,10 +58,10 @@ const GameMainPage = (props) => {
 
 
     return (
-        <>
-            <h1>You are joining game {gameId}</h1>
+        <div style={{ margin: 50 }}>
+            <h1>You are joining game {gameName}</h1>
+            <div>Choose from below characters</div>
             {players.map((player) => {
-
                 return !player['isKeeper'] && !player["occupied"] &&
                     (<>
                         <Card style={{ width: 300 }}>
@@ -62,20 +70,20 @@ const GameMainPage = (props) => {
                                 avatar={<Avatar src={player["avatar"]} />}
                             />
                             <div>
-                                <p>{`Sex: ${player["sex"]}`}</p>
-                                <p>{`Occupation: ${player["occupation"]}`}</p>
+                                <p>{`Sex: ${player["sex"] ? player["sex"] : "NA"}`}</p>
+                                <p>{`Occupation: ${player["occupation"] ? player["occupation"] : "NA"}`}</p>
                                 <p>{`HP: ${player["hp"]}`}</p>
                                 <p>{`MP: ${player["mp"]}`}</p>
                                 <p>{`Luck: ${player["luck"]}`}</p>
                                 <p>{`Sanity: ${player["sanity"]}`}</p>
-                                <p>{`Description: ${player["description"]}`}</p>
+                                <p>{`Description: ${player["description"] ? player["description"] : "NA"}`}</p>
                             </div>
                             <Button type="link" onClick={onClick} id={player['id']}>Start Game as this role</Button>
                         </Card>
                         <Divider type="vertical" />
                     </>)
             })}
-        </>);
+        </div>);
 }
 
 export default GameMainPage;
