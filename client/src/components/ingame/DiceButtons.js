@@ -17,7 +17,7 @@ const DiceButtons = (props) => {
 
     return (
         <Affix>
-            <h4>Roll dice here</h4>
+            <h4 style={{color: "white"}}>Roll dice here</h4>
             {dices.map(dice => <Button style={{ marginLeft: 2 }} type="primary" onClick={() => handleDiceRolling(dice)}>{dice}</Button>)}
         </Affix>
 

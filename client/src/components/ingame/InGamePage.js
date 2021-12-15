@@ -55,9 +55,7 @@ const InGamePage = (props) => {
       stompClient.connect(header, function (frame) {
         stompClient.subscribe(`/topic/characters/${gameId}`, function (greeting) {
           const updatedPlayer = JSON.parse(greeting.body);
-          const index = players.findIndex((player) => player['id'].toString() === updatedPlayer['id'].toString());
-          console.log(players);
-          setPlayers(players.slice(0, index).concat([updatedPlayer], players.slice(index + 1)));
+          setPlayers(updatedPlayer);
         });
 
         stompClient.subscribe(`/topic/message/${gameId}`, function (greeting) {
@@ -112,7 +110,12 @@ const InGamePage = (props) => {
 
   return (
     <>
-      <Modal destroyOnClose title="Player Update" visible={playerUpdateModalVisible} onOk={() => onUpdatePlayer(selectedPlayer["id"])} onCancel={onUpdatePlayerModalCancel} okText="update">
+      <Modal destroyOnClose
+        title="Player Update"
+        visible={playerUpdateModalVisible}
+        onOk={() => onUpdatePlayer(selectedPlayer["id"])}
+        onCancel={onUpdatePlayerModalCancel}
+        okText="update">
         <Card title={selectedPlayer?.["name"]} style={{ margin: 10 }}>
           <p>{`HP: ${selectedPlayer?.["hp"]}`}</p>
           <InputNumber min={-selectedPlayer?.["hp"]} onChange={val => { setHp(val) }} />
@@ -133,7 +136,10 @@ const InGamePage = (props) => {
               return !player['isKeeper'] &&
                 (<>
                   <Card title={player["id"] === plId && <p>Your Character</p>}
-                    style={{ margin: 10, backgroundImage: checkGameOver(player) ? "url('https://fontmeme.com/permalink/211215/b735034a712f3d6019c2c5e2d328614f.png')" : "" }}
+                    style={{
+                      margin: 10, backgroundImage: checkGameOver(player) ?
+                        "url('https://fontmeme.com/permalink/211215/cdaafd5fbc26450ec6414bb03e6db0ba.png')" : ""
+                    }}
                     id={player['id']}
                     extra={isKeeper &&
                       <Button type="text" ghost onClick={() => openPlayerModal(player['id'])} icon={<MoreOutlined />}></Button>}

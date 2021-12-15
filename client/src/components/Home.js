@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div style={{ margin: 30 }}>
+        <div style={{ margin: 30, color: "white"}}>
             <h4>Welcome to CoC Game Helper App!</h4>
             <div>
-                <Button>
+                <Button type="primary">
                     <Link to="/newgame"> Create a game </Link>
                 </Button>
             </div>

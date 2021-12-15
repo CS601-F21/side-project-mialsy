@@ -20,7 +20,7 @@ const GameLinkStep = () => {
     const sharedUrl = `localhost:3000/game/${encodedGameId}`;
 
     return (
-        <div>
+        <div style={{color: "white"}}>
             <div>You can share the game with the link: <Paragraph copyable={{ text: sharedUrl }}>{sharedUrl}</Paragraph></div>
             <Button type="primary" onClick={onClick}>Join Game</Button>
         </div>
