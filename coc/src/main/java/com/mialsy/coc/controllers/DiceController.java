@@ -13,17 +13,40 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+/**
+ * The Dice controller.
+ *
+ * Socket Controller - generate dice roll message.
+ *
+ * @author Chuxi Wang
+ */
 @Controller
 public class DiceController {
+    /**
+     * The Player repository.
+     */
     @Autowired
     PlayerRepository playerRepository;
 
+    /**
+     * Roll a dice, send message to info dice rolled type, and rolled points.
+     *
+     * @param diceMsg the dice message
+     * @param gameId  the game id
+     * @return the simple message including dice rolled points and total points
+     */
     @MessageMapping("/dice/{gameId}")
     @SendTo("/topic/message/{gameId}")
     public SimpleMsg rollDice(DiceMsg diceMsg, @DestinationVariable String gameId) {
         return getMessage(diceMsg);
     }
 
+    /**
+     * Generate messages to return to client
+     *
+     * @param diceMsg input dice message
+     * @return the simple message including dice rolled points and total points
+     */
     private SimpleMsg getMessage(DiceMsg diceMsg) {
         SimpleMsg msg = new SimpleMsg();
         Player byPlayer = PlayerUtils.getPlayer(playerRepository, diceMsg.getById());

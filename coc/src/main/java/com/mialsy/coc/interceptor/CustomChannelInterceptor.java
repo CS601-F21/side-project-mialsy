@@ -10,7 +10,20 @@ import org.springframework.util.MultiValueMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Custom channel interceptor.
+ *
+ * @author Chuxi Wang
+ */
 public class CustomChannelInterceptor implements ChannelInterceptor {
+    /**
+     * Customized channel interceptor reads in headers
+     * printout headers in log
+     *
+     * @param message message received from socket
+     * @param channel the message channel
+     * @return message
+     */
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         System.out.println("Channel Interceptor");
