@@ -22,14 +22,15 @@ const CreateKeeperStep = (props) => {
         const data = {
             name: value.plname,
             isKeeper: true,
-            occupied: true
+            occupied: true,
+            avatar: "https://fontmeme.com/permalink/211215/723034e1e7385707ff6c9334dbf58d04.png"
         };
 
         const gameId = sessionStorage.getItem("gameId");
         
         axios.post(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, data)
         .then((res) => {
-            sessionStorage.setItem("kpId", res.data.id);
+            sessionStorage.setItem("kpId", res.data.plId);
             sessionStorage.setItem("kpName", res.data.name);
             props.next();
         }).catch((err) => { 

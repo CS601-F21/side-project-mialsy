@@ -123,8 +123,13 @@ const CreateCharacterStep = (props) => {
     const onFinish = (values) => {
         const players = values['players']
         players.map((player) => {
+            const sex = player["sex"];
+            const name = player["name"];
+            const avatarUrl = (!sex || sex === "other") ?  `https://avatars.dicebear.com/api/pixel-art/${name}.svg` :
+             `https://avatars.dicebear.com/api/${sex}/${name}.svg`;
             player["isKeeper"] = false
             player["occupied"] = false
+            player["avatar"] = avatarUrl;
         })
         const gameId = sessionStorage.getItem("gameId");
         axios.post(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`, players)

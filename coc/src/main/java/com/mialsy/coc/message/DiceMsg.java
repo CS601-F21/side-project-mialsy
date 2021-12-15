@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class DiceMsg {
-    private String by;
+    private Long byId;
     private String diceType;
 }

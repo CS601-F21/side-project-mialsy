@@ -57,6 +57,9 @@ public class Player {
     @Column(name = "occupied")
     private Boolean occupied;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     public PlayerPojo toPojo() {
         return PlayerPojo.builder()
                 .plId(this.id)
@@ -72,6 +75,7 @@ public class Player {
                 .description(this.description)
                 .occupation(this.occupation)
                 .occupied(this.occupied)
+                .avatar(this.avatar)
                 .build();
     }
 }

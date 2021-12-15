@@ -7,18 +7,18 @@ const dices = ["D4", "D6", "D10", "D12", "D20", "D100"];
 
 const DiceButtons = (props) => {
     const stompClient = props.stompClient;
-    const plName = props.plName;
+    const plId = props.plId;
     const gameId = props.gameId;
 
     const handleDiceRolling = (diceType) => {
         rollADie({element: document.getElementById('dice-roll'), numberOfDice:1, callback:() => {}});
-        stompClient.send(`/app/dice/${gameId}`, {}, JSON.stringify({'diceType' : diceType, 'by': plName}));         
+        stompClient.send(`/app/dice/${gameId}`, {}, JSON.stringify({'diceType' : diceType, 'byId': plId}));         
     }
 
     return (
         <Affix>
-            <div>Roll a dice</div>
-            {dices.map(dice => <Button type="primary" onClick={() => handleDiceRolling(dice)}>{dice}</Button>)}
+            <h4>Roll dice here</h4>
+            {dices.map(dice => <Button style={{marginLeft: 2}} type="primary" onClick={() => handleDiceRolling(dice)}>{dice}</Button>)}
         </Affix>
 
     )

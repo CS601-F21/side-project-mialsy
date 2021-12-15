@@ -19,4 +19,5 @@ public class PlayerPojo {
     private Integer luck;
     private String description;
     private Boolean occupied;
+    private String avatar;
 }

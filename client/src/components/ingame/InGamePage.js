@@ -2,16 +2,19 @@ import React, {useState, useEffect} from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
-import {Button, Row, Col, Card, Divider, Modal, InputNumber } from 'antd';
+import {Button, Row, Col, Card, Divider, Modal, InputNumber, Avatar } from 'antd';
 import axios from "axios";
 import { MoreOutlined } from '@ant-design/icons';
 import 'react-chatbox-component/dist/style.css';
 import { ChatBox } from 'react-chatbox-component';
 import DiceButtons from './DiceButtons';
+import Meta from 'antd/lib/card/Meta';
+import gameoverImg from '../../static/gameover.png';
 
 const InGamePage = (props) => {
     const { state } = useLocation();
     const { plName, plId, isKeeper } = state || {};
+
     let encodedGameId = useParams().id;
     const gameId = atob(encodedGameId).substr('cocgame:'.length);
 
@@ -64,7 +67,7 @@ const InGamePage = (props) => {
               "id": combinedMessages.length === 0 ? "1" : (combinedMessages?.[combinedMessages.length - 1]['id'] + 1).toString(),
               "sender": {
                 "name": JSON.parse(greeting.body).by,
-                "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
+                "avatar": JSON.parse(greeting.body).avatar,
               },
             });
             setMessages([...combinedMessages])
@@ -103,8 +106,10 @@ const InGamePage = (props) => {
     }
 
     const onSubmit= (msg) => {        
-      stompClient.send(`/app/message/${gameId}`, {}, JSON.stringify({'msgBody' : msg, 'by': plName}));         
+      stompClient.send(`/app/message/${gameId}`, {}, JSON.stringify({'msgBody' : msg, 'byId': plId}));         
     }
+
+    const checkGameOver = (player) => player["hp"] === 0;
 
     return (
     <> 
@@ -120,7 +125,7 @@ const InGamePage = (props) => {
           <InputNumber min={-selectedPlayer?.["sanity"]} onChange={val=>{setSanity(val)}} />
       </Card>
       </Modal>
-      <DiceButtons stompClient={stompClient} plName={plName} gameId={gameId}/>
+      <DiceButtons stompClient={stompClient} plId={plId} gameId={gameId}/>
         <>
         <Row type="flex">
       <Col span={6}>        
@@ -128,18 +133,26 @@ const InGamePage = (props) => {
 
 return !player['isKeeper'] &&
 (<>
-<Card title={player["name"]} style={{ margin: 10 }} id={player['id']}>
-  <p>{`Sex: ${player["sex"]}`}</p>
-  <p>{`Occupation: ${player["occupation"]}`}</p>
-  <p>{`HP: ${player["hp"]}`}</p>
-  <p>{`MP: ${player["mp"]}`}</p>
-  <p>{`Luck: ${player["luck"]}`}</p>
-  <p>{`Sanity: ${player["sanity"]}`}</p>
-  <p>{`Description: ${player["description"]}`} 
-  </p>
-  {isKeeper && 
-  <Button type="text" ghost onClick={() => openPlayerModal(player['id'])} icon={<MoreOutlined  />}></Button>}
-</Card>
+<Card title={player["id"] === plId && <p>Your Character</p>} 
+style={{ margin: 10, backgroundImage: checkGameOver(player) ? "url('https://fontmeme.com/permalink/211215/b735034a712f3d6019c2c5e2d328614f.png')" : ""}}
+id={player['id']}
+    extra={isKeeper && 
+      <Button type="text" ghost onClick={() => openPlayerModal(player['id'])} icon={<MoreOutlined />}></Button>}
+  >
+    <Meta
+    title={player["name"]}
+    avatar={<Avatar src={player["avatar"]} />}
+      />
+    <div>
+    <p>{`Sex: ${player["sex"]}`}</p>
+    <p>{`Occupation: ${player["occupation"]}`}</p>
+    <p>{`HP: ${player["hp"]}`}</p>
+    <p>{`MP: ${player["mp"]}`}</p>
+    <p>{`Luck: ${player["luck"]}`}</p>
+    <p>{`Sanity: ${player["sanity"]}`}</p>
+    <p>{`Description: ${player["description"]}`} </p>
+    </div>
+  </Card>
 <Divider type="vertical" />
 </>)
 })}</Col>
