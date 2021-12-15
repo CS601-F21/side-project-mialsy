@@ -3,7 +3,6 @@ import Form from "antd/lib/form";
 import React from "react";
 
 const FormPrototype = (props) => {
-    console.log(props)
     const onFinish = (values) => {
         props.onFinish(values);
     }

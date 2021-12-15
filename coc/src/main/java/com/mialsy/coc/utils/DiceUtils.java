@@ -2,9 +2,13 @@ package com.mialsy.coc.utils;
 
 import com.mialsy.coc.models.Dice;
 
+import java.util.Random;
+
 import static com.mialsy.coc.models.Dice.*;
 
 public class DiceUtils {
+    private static final Random RANDOM = new Random();
+
     public static Dice getMappedDice(String typeStr) {
         if (typeStr.equals(D4.getType())) {
             return D4;
@@ -23,5 +27,9 @@ public class DiceUtils {
         } else {
             throw new NoSuchFieldError("No Such Dice type");
         }
+    }
+
+    public static int roll(Dice dice) {
+        return RANDOM.nextInt(dice.getTotalPts()) + 1;
     }
 }

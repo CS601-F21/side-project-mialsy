@@ -1,7 +1,6 @@
-import { useLocation } from 'react-router-dom';
 import { React, useEffect, useState } from "react";
 import { message, Card, Divider, Button } from "antd";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 
@@ -12,10 +11,7 @@ const GameMainPage = (props) => {
 
     const navigate = useNavigate();
 
-
-    const { pathname } = useLocation();
-
-    const encodedGameId = pathname.substr("/game/".length);
+    let encodedGameId = useParams().id;
 
     const gameId = atob(encodedGameId).substr('cocgame:'.length);
 
@@ -37,31 +33,31 @@ const GameMainPage = (props) => {
     }, [])
 
     const onClick = (event) => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`)
+        console.log(event.target.parentElement.id);
+        const id = event.target.parentElement.id;
+        console.log(id);
+        axios.get(`${process.env.REACT_APP_BASE_URL}/player?plId=${id}`)
         .then((
             (res) => {
-                const player = res.data.find(ele => ele['id'].toString() === event.target.parentElement.id.toString());
+                const player = res.data;
+                console.log(player)
                 if (player?.['occupied'] === false) {
                     player['occupied'] = true;
-                    axios.post(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, player)
+                    sessionStorage.setItem("plName", player["name"]);
+                    axios.put(`${process.env.REACT_APP_BASE_URL}/player?gameId=${gameId}`, player)
                     .then((res) => {
                         console.log(res);
                     });
-                    navigate("/ingame", {state:{plId:event.target.parentElement.id,isKeeper: false}})
+                    navigate(`../ingame/${encodedGameId}`, 
+                    {state:{plName: player["name"], plId:id,isKeeper: false}})
                     
                 } else {
-                    message("This role has been occupied, try another one please");
+                    message.error("This role has been occupied, try another one please");
                     setPlayers(res.data);
                 }
             }
         ))
-
-
     }
-
-
-
-
 
     return (
     <>

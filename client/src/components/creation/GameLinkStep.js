@@ -11,7 +11,8 @@ const GameLinkStep = () => {
     const navigate = useNavigate();
 
     const onClick = () => {
-        navigate(`/game/${encodedGameId}`, { "heyhey": true })
+        navigate(`../ingame/${encodedGameId}`, 
+        {state: { plName: sessionStorage.getItem("kpName"),plId: sessionStorage.getItem("kpId"), isKeeper: true}})
     }
 
     return (

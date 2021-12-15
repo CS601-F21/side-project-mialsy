@@ -36,14 +36,9 @@ public class PlayerController {
     Iterable<PlayerPojo> createPlayers(@RequestParam(name = "gameId") Long gameId, @RequestBody Iterable<Player> players) {
         List<PlayerPojo> plPojos = new ArrayList<>();
         for (Player player : players) {
-            plPojos.add(updatePlayer(gameId, player));
+            plPojos.add(upsertPlayer(gameId, player));
         }
         return plPojos;
-    }
-
-    @PutMapping("/player")
-    PlayerPojo updatePlayer(@RequestParam(name = "gameId") Long gameId, @RequestBody Player player) {
-        return upsertPlayer(gameId, player);
     }
 
     @GetMapping("/players")

@@ -24,10 +24,11 @@ public class CharacterController {
 
         Player player = playerRepository.findById(message.getPlId())
                 .orElseThrow(() -> ErrorUtils.getObjectNotFoundException(Player.class.getName(), message.getPlId()));
-        player.setHp(message.getHpChange());
-        player.setMp(message.getMpChange());
-        player.setLuck(message.getLuckChange());
-        player.setSanity(message.getSanChange());
+        System.out.println(message);
+        player.setHp(player.getHp() + message.getHpChange());
+        player.setMp(player.getMp() + message.getMpChange());
+        player.setLuck(player.getLuck() + message.getLuckChange());
+        player.setSanity(player.getSanity() + message.getSanChange());
         return playerRepository.save(player);
     }
 

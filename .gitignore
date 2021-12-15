@@ -90,3 +90,4 @@ hs_err_pid*
 .idea/libraries/Maven__org_xmlunit_xmlunit_core_2_8_3.xml
 .idea/libraries/Maven__org_yaml_snakeyaml_1_29.xml
 client/.env
+client/package-lock.json

@@ -21,9 +21,8 @@ function App() {
             <Route path = "/newgame" element={<CreateGamePage />} />
             <Route path = "/" element={<Home /> } />
             <Route path = "/test" element={<CreateCharacterStep prev={() => console.log("prev")} next={() => console.log("next")}/>} />
-            <Route path = "/ingame" element={<InGamePage />} />
+            <Route path = "/ingame/:id" element={<InGamePage />} />
             {/* <Route path = "*" element={<NotFoundPage />} /> */}
-            <Route path = "/test1" element={<WebSocketExample />} />
           </Routes> 
         </div>
       </BrowserRouter>

@@ -1,42 +1,33 @@
 import React, {useState, useEffect} from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
-import {Button, message, Row, Col, Card, Divider, Modal, Input } from 'antd';
+import {Button, Row, Col, Card, Divider, Modal, InputNumber } from 'antd';
 import axios from "axios";
 import { MoreOutlined } from '@ant-design/icons';
 import 'react-chatbox-component/dist/style.css';
 import { ChatBox } from 'react-chatbox-component';
-import rollADie from 'roll-a-die';
-import droll from 'droll';
+import DiceButtons from './DiceButtons';
 
 const InGamePage = (props) => {
     const { state } = useLocation();
-    const { plId, isKeeper } = state || {};
+    const { plName, plId, isKeeper } = state || {};
+    let encodedGameId = useParams().id;
+    const gameId = atob(encodedGameId).substr('cocgame:'.length);
+
     const [ combinedMessages, setMessages ] = useState([]);
     const [ players, setPlayers ] = useState([]);
-    const [ isDiceModalVisible, setDiceModalVisible ] = useState(false);
-    const [ diceInput, setDiceInput ] = useState('');
-
     const [ playerUpdateModalVisible, setPlayerUpdateModalVisible ] = useState(false);
 
     const [ selectedPlayer, setSelectedPlayer ] = useState({});
 
-
-    const [ hp, setHp ] = useState('');
-    const [ sanity, setSanity ] = useState('');
-    const [ mp, setMp ] = useState('');
-    const [ luck, setLuck ] = useState('');
+    const [ hp, setHp ] = useState(0);
+    const [ sanity, setSanity ] = useState(0);
+    const [ mp, setMp ] = useState(0);
+    const [ luck, setLuck ] = useState(0);
 
     
     const [stompClient, setClient] = useState(undefined);
-    const disconnect = () => {
-        if (stompClient) {
-          stompClient.disconnect();
-        }
-        setClient(undefined);
-        console.log("disconnected");
-    }
 
     const connect = () => {
         const socket = new SockJS("http://localhost:8080/coc-websocket");
@@ -45,7 +36,8 @@ const InGamePage = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/players?gameId=${23}`)
+        connect();
+        axios.get(`${process.env.REACT_APP_BASE_URL}/players?gameId=${gameId}`)
         .then((res) => {
             setPlayers(res.data);
         }).catch((err) => { 
@@ -59,19 +51,19 @@ const InGamePage = (props) => {
         }
         if (stompClient) {
           stompClient.connect(header, function (frame) {   
-            stompClient.subscribe('/topic/characters/29', function (greeting) {
+            stompClient.subscribe(`/topic/characters/${gameId}`, function (greeting) {
               const updatedPlayer = JSON.parse(greeting.body);
               const index = players.findIndex((player) => player['id'].toString() === updatedPlayer['id'].toString());
+              console.log(players);
               setPlayers(players.slice(0, index).concat([updatedPlayer], players.slice(index + 1)));
             });
 
-            stompClient.subscribe('/topic/message/29', function (greeting) {
+            stompClient.subscribe(`/topic/message/${gameId}`, function (greeting) {
               combinedMessages.push({
               "text": JSON.parse(greeting.body).msgBody,
               "id": combinedMessages.length === 0 ? "1" : (combinedMessages?.[combinedMessages.length - 1]['id'] + 1).toString(),
               "sender": {
-                "name": "Ironman",
-                "uid": "user1",
+                "name": JSON.parse(greeting.body).by,
                 "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
               },
             });
@@ -84,38 +76,14 @@ const InGamePage = (props) => {
       }, [stompClient]);
 
 
-
-      
-
-    const toggleConnection = () => {
-        if (stompClient) {
-          disconnect();
-        } else {
-          connect();
-        } 
-    }
-
-    const rollDice = () => {
-      setDiceModalVisible(true);
-
-    }
-
-    const handleDiceRolling = () => {
-      setDiceModalVisible(false);
-      const total = droll.roll(diceInput).total;
-      rollADie({element: document.getElementById('dice-roll'), numberOfDice:1, callback:() => {}});
-      setDiceInput('');
-    }
-
     const onUpdatePlayer = (plId) => {
       setPlayerUpdateModalVisible(false);
-      const oldPlayer = players.find((player) => player['id'] === plId);
-      stompClient.send("/app/status/29", {"name": "mialsy"}, JSON.stringify(
-        {'plId' : plId, 'hpChange': hp === ''? oldPlayer['hp']: parseInt(hp), 'mpChange': mp === ''? oldPlayer['mp']: parseInt(mp), 'sanChange': sanity === ''? oldPlayer['sanity']: parseInt(sanity), 'luckChange': luck === ''? oldPlayer['luck']: parseInt(luck)}));     
-      setMp('');
-      setHp('');
-      setSanity('');
-      setLuck('');
+      stompClient.send(`/app/status/${gameId}`, {}, JSON.stringify(
+        {'plId' : plId, 'hpChange': hp, 'mpChange': mp, 'sanChange': sanity, 'luckChange': luck}));     
+      setMp(0);
+      setHp(0);
+      setSanity(0);
+      setLuck(0);
       setSelectedPlayer({});
     }
 
@@ -125,45 +93,34 @@ const InGamePage = (props) => {
       setSelectedPlayer(selectedPlayer);
     }
 
-    const handleDiceCancel = () => {
-      setDiceModalVisible(false);
-      setDiceInput('');
-    }
-
     const onUpdatePlayerModalCancel = () => {
       setPlayerUpdateModalVisible(false);
       setSelectedPlayer({});
-      setHp('');
-      setSanity('');
-      setLuck('');
-      setMp('');
+      setHp(0);
+      setSanity(0);
+      setLuck(0);
+      setMp(0);
     }
 
     const onSubmit= (msg) => {        
-      stompClient.send("/app/message/29", {"name": "mialsy"}, JSON.stringify({'msgBody' : msg, 'by': '122'}));         
+      stompClient.send(`/app/message/${gameId}`, {}, JSON.stringify({'msgBody' : msg, 'by': plName}));         
     }
 
     return (
     <> 
-      <Modal title="Player Update" visible={playerUpdateModalVisible} onOk={() => onUpdatePlayer(selectedPlayer["id"])} onCancel={onUpdatePlayerModalCancel} okText="update">
+      <Modal destroyOnClose title="Player Update" visible={playerUpdateModalVisible} onOk={() => onUpdatePlayer(selectedPlayer["id"])} onCancel={onUpdatePlayerModalCancel} okText="update">
       <Card title={selectedPlayer?.["name"]} style={{ margin: 10 }}>
-          <p>{`Sex: ${selectedPlayer?.["sex"]}`}</p>
-          <p>{`Occupation: ${selectedPlayer?.["occupation"]}`}</p>
           <p>{`HP: ${selectedPlayer?.["hp"]}`}</p>
-          <Input placeholder="Input a number" maxLength={5} onChange={event=>{setHp(event.target.value)}} value={hp}/>
+          <InputNumber min={-selectedPlayer?.["hp"]} onChange={val=>{setHp(val)}} />
           <p>{`MP: ${selectedPlayer?.["mp"]}`}</p>
-          <Input placeholder="Input a number" maxLength={5} onChange={event=>{setMp(event.target.value)}} value={mp}/>
+          <InputNumber min={-selectedPlayer?.["mp"]} onChange={val=>{setMp(val)}} />
           <p>{`Luck: ${selectedPlayer?.["luck"]}`}</p>
-          <Input placeholder="Input a number" maxLength={5} onChange={event=>{setLuck(event.target.value)}} value={luck}/>
+          <InputNumber min={-selectedPlayer?.["luck"]} onChange={val=>{setLuck(val)}} />
           <p>{`Sanity: ${selectedPlayer?.["sanity"]}`}</p>
-          <Input placeholder="Input a number" maxLength={5} onChange={event=>{setSanity(event.target.value)}} value={sanity}/>
+          <InputNumber min={-selectedPlayer?.["sanity"]} onChange={val=>{setSanity(val)}} />
       </Card>
       </Modal>
-      <Modal title="Dice Modal" visible={isDiceModalVisible} onOk={handleDiceRolling} onCancel={handleDiceCancel}>
-        <Input placeholder="Dice input here..." value={diceInput} onChange={(event) => {setDiceInput(event.target.value)}}/>
-      </Modal>
-        <Button type="primary" onClick={() => toggleConnection()}>{stompClient ? "Disconnect" : "Connect"}</Button>
-        <Button type="primary" onClick={() => rollDice()}>Roll the Dice</Button>
+      <DiceButtons stompClient={stompClient} plName={plName} gameId={gameId}/>
         <>
         <Row type="flex">
       <Col span={6}>        
@@ -178,13 +135,16 @@ return !player['isKeeper'] &&
   <p>{`MP: ${player["mp"]}`}</p>
   <p>{`Luck: ${player["luck"]}`}</p>
   <p>{`Sanity: ${player["sanity"]}`}</p>
-  <p>{`Description: ${player["description"]}`} <Button type="text" ghost onClick={() => openPlayerModal(player['id'])} icon={<MoreOutlined  />}></Button></p>
+  <p>{`Description: ${player["description"]}`} 
+  </p>
+  {isKeeper && 
+  <Button type="text" ghost onClick={() => openPlayerModal(player['id'])} icon={<MoreOutlined  />}></Button>}
 </Card>
 <Divider type="vertical" />
 </>)
 })}</Col>
       <Col span={18}>
-        <ChatBox messages={combinedMessages} onSubmit={onSubmit} />
+        <ChatBox messages={combinedMessages} users={players} onSubmit={onSubmit} />
         <div id='dice-roll' z-index={289} width="100%" height="100%"></div>
         </Col>
     </Row>

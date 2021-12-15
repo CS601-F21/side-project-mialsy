@@ -76,8 +76,8 @@ const CreateCharacterStep = (props) => {
                             <Form.Item
                                 {...restField}
                                 label="Sanity"
-                                name={[name, 'san']}
-                                fieldKey={[fieldKey, 'san']}
+                                name={[name, 'sanity']}
+                                fieldKey={[fieldKey, 'sanity']}
                                 rules={[{ required: true, message: 'Please input sanity' }]}
                             >
                                 <InputNumber min={0} max={100}/>
