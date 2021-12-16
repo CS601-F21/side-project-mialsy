@@ -6,7 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Meta from 'antd/lib/card/Meta';
 
-const GameMainPage = (props) => {
+/**
+ * Game main page when a player clicked on shared link
+ * allows user to select from created characters
+ * 
+ * @returns Game main page
+ */
+const GameMainPage = () => {
     const [players, setPlayers] = useState([]);
     const [gameName, setGameName] = useState(``);
 

@@ -2,6 +2,12 @@ import { Button } from "antd";
 import Form from "antd/lib/form";
 import React from "react";
 
+/**
+ * From Prototype, protype used for rendering different forms on creation step
+ * 
+ * @param {*} props props from parent 
+ * @returns 
+ */
 const FormPrototype = (props) => {
     const onFinish = (values) => {
         props.onFinish(values);

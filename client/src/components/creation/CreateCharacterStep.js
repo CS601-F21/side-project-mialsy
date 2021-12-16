@@ -3,6 +3,12 @@ import FormPrototype from "./FormPrototype";
 import axios from "axios";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
+/**
+ * Create Character Step Content
+ * 
+ * @param {*} props props from parent
+ * @returns Step Content
+ */
 const CreateCharacterStep = (props) => {
 
     const content = (
@@ -120,6 +126,7 @@ const CreateCharacterStep = (props) => {
         </Form.List>
     );
 
+    // create players
     const onFinish = (values) => {
         const players = values['players']
         players.map((player) => {

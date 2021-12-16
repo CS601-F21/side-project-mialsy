@@ -49,6 +49,7 @@ public class DiceController {
      */
     private SimpleMsg getMessage(DiceMsg diceMsg) {
         SimpleMsg msg = new SimpleMsg();
+        msg.setById(diceMsg.getById());
         Player byPlayer = PlayerUtils.getPlayer(playerRepository, diceMsg.getById());
         msg.setBy(byPlayer.getName());
         msg.setAvatar(byPlayer.getAvatar());

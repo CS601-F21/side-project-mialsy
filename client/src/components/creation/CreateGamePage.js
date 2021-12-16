@@ -7,15 +7,16 @@ import GameLinkStep from "./GameLinkStep";
 
 const { Step } = Steps;
 
+/**
+ * Create Game Page - including 4 steps
+ *  
+ * @returns Create Game Page Component 
+ */
 const CreateGamePage = () => {
     const [current, setCurrent] = useState(0);
 
     const next = () => {
         setCurrent(current + 1);
-    }
-
-    const prev = () => {
-        setCurrent(current - 1);
     }
 
     const steps = [
@@ -24,10 +25,10 @@ const CreateGamePage = () => {
             content: <InputGameInfoStep next={next} />,
         }, {
             title: 'Input Your Infomation',
-            content: <CreateKeeperStep next={next} prev={prev} />,
+            content: <CreateKeeperStep next={next} />,
         }, {
             title: 'Create Characters',
-            content: <CreateCharacterStep next={next} prev={prev} />,
+            content: <CreateCharacterStep next={next} />,
         }, {
             title: 'Success!',
             content: <GameLinkStep />

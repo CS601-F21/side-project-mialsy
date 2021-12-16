@@ -4,6 +4,12 @@ import axios from "axios";
 import React from "react";
 import FormPrototype from "./FormPrototype";
 
+/**
+ * Input Game Name Step
+ * 
+ * @param {*} props props from parent
+ * @returns 
+ */
 const InputGameInfoStep = (props) => {
 
     const content = (<Form.Item

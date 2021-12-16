@@ -10,9 +10,19 @@ import { ChatBox } from 'react-chatbox-component';
 import DiceButtons from './DiceButtons';
 import Meta from 'antd/lib/card/Meta';
 
+/**
+ * In game page
+ * 
+ * @param {*} props props from parent 
+ * @returns in game page
+ */
 const InGamePage = (props) => {
   const { state } = useLocation();
   const { plName, plId, isKeeper } = state || {};
+
+  const user = {
+    "uid": plId
+  };
 
   let encodedGameId = useParams().id;
   const gameId = atob(encodedGameId).substr('cocgame:'.length);
@@ -45,7 +55,7 @@ const InGamePage = (props) => {
       }).catch((err) => {
         console.log(err);
       });
-  }, [])
+  }, [gameId])
 
   useEffect(() => {
     const header = {
@@ -65,6 +75,7 @@ const InGamePage = (props) => {
             "sender": {
               "name": JSON.parse(greeting.body).by,
               "avatar": JSON.parse(greeting.body).avatar,
+              "uid": JSON.parse(greeting.body).byId
             },
           });
           setMessages([...combinedMessages])
@@ -162,7 +173,7 @@ const InGamePage = (props) => {
                 </>)
             })}</Col>
           <Col span={18}>
-            <ChatBox messages={combinedMessages} users={players} onSubmit={onSubmit} />
+            <ChatBox messages={combinedMessages} user={user} onSubmit={onSubmit} />
             <div id='dice-roll' z-index={289} width="100%" height="100%"></div>
           </Col>
         </Row>

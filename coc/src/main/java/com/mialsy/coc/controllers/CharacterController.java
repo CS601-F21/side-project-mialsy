@@ -47,7 +47,6 @@ public class CharacterController {
         // update in db
         Player player = playerRepository.findById(message.getPlId())
                 .orElseThrow(() -> ErrorUtils.getObjectNotFoundException(Player.class.getName(), message.getPlId()));
-        System.out.println(message);
         player.setHp(player.getHp() + message.getHpChange());
         player.setMp(player.getMp() + message.getMpChange());
         player.setLuck(player.getLuck() + message.getLuckChange());

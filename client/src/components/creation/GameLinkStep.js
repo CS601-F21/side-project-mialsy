@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 const { Paragraph } = Typography;
 
+/**
+ * Display a link that can be copied and shared to other people
+ * 
+ * @returns step content 
+ */
 const GameLinkStep = () => {
 
     const gameId = sessionStorage.getItem("gameId");

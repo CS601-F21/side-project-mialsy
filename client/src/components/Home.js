@@ -2,6 +2,11 @@ import { Button } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Home page
+ * 
+ * @returns Home page component
+ */
 const Home = () => {
     return (
         <div style={{ margin: 30, color: "white"}}>

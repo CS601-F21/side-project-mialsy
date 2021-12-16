@@ -7,6 +7,11 @@ import InGamePage from './components/ingame/InGamePage';
 import NotFoundPage from './components/NotFoundPage';
 import { useEffect } from 'react';
 
+/**
+ * App route
+ * 
+ * @returns route
+ */
 function App() {
   useEffect(() => {
     document.body.style.background = "#18191A";

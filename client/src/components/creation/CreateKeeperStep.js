@@ -4,6 +4,12 @@ import axios from "axios";
 import React from "react";
 import FormPrototype from "./FormPrototype";
 
+/**
+ * Create keeper step 
+ * 
+ * @param {*} props props from parent
+ * @returns step content
+ */
 const CreateKeeperStep = (props) => {
     const content = (<Form.Item
         label="Your Name"
@@ -18,6 +24,7 @@ const CreateKeeperStep = (props) => {
         <Input />
     </Form.Item>);
 
+    // send create keeper request to backend
     const onFinish = (value) => {
         const data = {
             name: value.plname,
@@ -40,7 +47,7 @@ const CreateKeeperStep = (props) => {
     }
 
     return (
-        <FormPrototype next={props.next} prev={props.prev} content={content} onFinish={onFinish} />
+        <FormPrototype next={props.next} content={content} onFinish={onFinish} />
     );
 }
 
