@@ -63,19 +63,19 @@ const InGamePage = (props) => {
     }
     if (stompClient) {
       stompClient.connect(header, function (frame) {
-        stompClient.subscribe(`/topic/characters/${gameId}`, function (greeting) {
-          const updatedPlayer = JSON.parse(greeting.body);
+        stompClient.subscribe(`/topic/characters/${gameId}`, function (receivedMsg) {
+          const updatedPlayer = JSON.parse(receivedMsg.body);
           setPlayers(updatedPlayer);
         });
 
-        stompClient.subscribe(`/topic/message/${gameId}`, function (greeting) {
+        stompClient.subscribe(`/topic/message/${gameId}`, function (receivedMsg) {
           combinedMessages.push({
-            "text": JSON.parse(greeting.body).msgBody,
+            "text": JSON.parse(receivedMsg.body).msgBody,
             "id": combinedMessages.length === 0 ? "1" : (combinedMessages?.[combinedMessages.length - 1]['id'] + 1).toString(),
             "sender": {
-              "name": JSON.parse(greeting.body).by,
-              "avatar": JSON.parse(greeting.body).avatar,
-              "uid": JSON.parse(greeting.body).byId
+              "name": JSON.parse(receivedMsg.body).by,
+              "avatar": JSON.parse(receivedMsg.body).avatar,
+              "uid": JSON.parse(receivedMsg.body).byId
             },
           });
           setMessages([...combinedMessages])
