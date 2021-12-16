@@ -62,11 +62,11 @@ Below shows game creation and in game:
 
 **Game Creation Demo**
 
-![creation](https://github.com/CS601-F21/side-project-mialsy/blob/main/demo_gif_creation.gif)
+![creation](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/demo_gif_creation.gif)
 
 **In Game Demo**
 
-![in game](https://github.com/CS601-F21/side-project-mialsy/blob/main/demo_in_game.gif)
+![in game](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/demo_in_game.gif)
 <p align="right">
 <a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
 </p>
@@ -77,6 +77,23 @@ The app is inplmeneted with a front end and backend seperated architecture.
 The frontend is built with react, with stomp client to send messages to socket channel, and antd components as UI building bricks.
 
 The backend is built with Spring Boot. For real time update, spring WebSocket was used to send chating messages, send dice roll infomation as well as update user's status. For simplicity of the code, the Lombok library was used for code generation of getters, setters, and builder of the models and POJOs.
+
+Bellow shows the code workflows:
+- Create game:
+   ![Create game](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/create_game.png)
+- Create keeper:
+   ![Create keeper](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/create_kp.png)
+- Create players:
+   ![Create players](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/create_pl.png)
+- Roll dice and chat:
+   ![Roll dice and char](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/dice_n_chat.png)
+- Update character status:
+   ![Update character status](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/status_update.png)
+
+For data, this app has mainly two models, one is game and the other one is player, the relationship between these two models are shown below:
+
+   ![Update character status](https://github.com/CS601-F21/side-project-mialsy/blob/main/images/relationship.png)
+
 <p align="right">
 <a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
 </p>
