@@ -4,6 +4,17 @@ Side Project - CoC Game Helper
 
 **Summary**: This app is inspired from my experience with playing COC TRPG with my friends - that we cannot find a good app for us to roll dice, and keep track of players status. In COVID-days, I am definitely more obsessed than playing game remotely. Thus, I want to create such an app so that I can play "TRPG" (there is no table techinically) games with friends. 
 
+<details>
+  <summary>🏃‍♀️ Jump to ...</summary>
+  <ul>
+    <li><a href = "https://github.com/CS601-F21/side-project-mialsy#octopus-about-coc">About CoC</a></li>
+    <li><a href = "https://github.com/CS601-F21/side-project-mialsy#dart-features">Features</a></li>
+    <li><a href = "https://github.com/CS601-F21/side-project-mialsy#wrench-implementation">Implementation</a></li>
+    <li><a href = "https://github.com/CS601-F21/side-project-mialsy#running-run-code">Run Code</a></li>
+  </ul>
+</details>
+
+
 # :octopus: About CoC
 CoC is the short for "Call of Cthulhu", it is "a horror fiction role-playing game based on H. P. Lovecraft's story of the same name and the associated Cthulhu Mythos" - from [wikipedia](https://en.wikipedia.org/wiki/Call_of_Cthulhu_(role-playing_game) "click here to view wiki").
 
@@ -12,9 +23,7 @@ This is a type of role playing game, where players can either be a keeper - who 
 Below is a YouTube video that may help you know more about CoC game, click👇 to go to youtube video.
 
 [![CoC Game Introduction Video](https://i.ytimg.com/an_webp/wS1cni6K304/mqdefault_6s.webp?du=3000&sqp=CNyi6o0G&rs=AOn4CLDjH-uJd2cOxDsrn0fd-RRIRmyTHA)](https://youtu.be/wS1cni6K304 "click here to watch the video")
-<p align="right">
-<a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
-</p>
+
 ### Game Setting
 In the CoC game, there is usaully a keepr who is in charge of the game progress, and a few players (usually 1-5). The character in the game usually have status like hit points (HP), magic points (MP) like any RPG, but specially, in a CoC game, the character also has luck and sanity for status, which is originated from the idea that people lose sanity when seeing nightmare creactures. So in this app, I followed the same setting.
 
@@ -27,6 +36,7 @@ As CoC game is a "word" game - the keeper need to tell the player about the stor
 <p align="right">
 <a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
 </p>
+
 # :dart: Features
 In this game, the user can have two workflow:
 - Create a game - this allow user to be the "Keeper" of the game, the user can name a game, set up characters for the game, and share the game room link with friends.
