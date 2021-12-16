@@ -49,3 +49,4 @@ cd client
 npm install
 npm start
 ```
+Please note that the database setup and frontend .env file need to be created to run this program correctly.
