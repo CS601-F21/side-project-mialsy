@@ -52,7 +52,7 @@ const GameMainPage = () => {
                             .then((res) => {
                                 console.log(res);
                             });
-                        navigate(`/ingame/${encodedGameId}`, { state: { plId: event.target.parentElement.id, isKeeper: false } })
+                        navigate(`/ingame/${encodedGameId}`, { state: { plId: parseInt(event.target.parentElement.id, 10), isKeeper: false } })
 
                     } else {
                         message.error("This role has been occupied, try another one please");

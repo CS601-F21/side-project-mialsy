@@ -18,7 +18,7 @@ import Meta from 'antd/lib/card/Meta';
  */
 const InGamePage = (props) => {
   const { state } = useLocation();
-  const { plName, plId, isKeeper } = state || {};
+  let { plName, plId, isKeeper } = state || {};
 
   const user = {
     "uid": plId
@@ -143,7 +143,6 @@ const InGamePage = (props) => {
         <Row type="flex">
           <Col span={6}>
             {players.map((player) => {
-
               return !player['isKeeper'] &&
                 (<>
                   <Card title={player["id"] === plId && <p>Your Character</p>}

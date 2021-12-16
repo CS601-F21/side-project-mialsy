@@ -19,7 +19,7 @@ const GameLinkStep = () => {
 
     const onClick = () => {
         navigate(`../ingame/${encodedGameId}`,
-            { state: { plName: sessionStorage.getItem("kpName"), plId: sessionStorage.getItem("kpId"), isKeeper: true } })
+            { state: { plName: sessionStorage.getItem("kpName"), plId: parseInt(sessionStorage.getItem("kpId"), 10), isKeeper: true } })
     }
 
     const sharedUrl = `localhost:3000/game/${encodedGameId}`;
