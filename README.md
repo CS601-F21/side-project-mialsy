@@ -19,12 +19,23 @@ In this game, the user can have two workflow:
 - Join a game as player - the user will be able to enter a link keeper provides, choose a character and play game as the choosen character. 
 - In game - during game, the keeper will be able to manage game (update status of characters), and both keeper and player will be able to send chat messages, and roll a dice!
 
+### Demo Images
+Below shows game creation and in game:
+
+**Game Creation Demo**
+
+![creation](https://github.com/CS601-F21/side-project-mialsy/blob/main/demo_gif_creation.gif)
+
+**In Game Demo**
+
+![in game](https://github.com/CS601-F21/side-project-mialsy/blob/main/demo_in_game.gif)
+
 ## Implementation 
 The app is inplmeneted with a front end and backend seperated architecture. 
 
 The frontend is built with react, with stomp client to send messages to socket channel, and antd components as UI building bricks.
 
-The backend is built with Spring Boot. For simplicity of the code, the Lombok library was used for code generation of getters, setters, and builder of the models and POJOs.
+The backend is built with Spring Boot. For real time update, spring WebSocket was used to send chating messages, send dice roll infomation as well as update user's status. For simplicity of the code, the Lombok library was used for code generation of getters, setters, and builder of the models and POJOs.
 
 ## Run Code
 - Backend(database config and setup required):
