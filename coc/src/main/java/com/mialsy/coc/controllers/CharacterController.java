@@ -36,7 +36,6 @@ public class CharacterController {
 
     /**
      * Change status, return the updated player iterable.
-     *
      * @param message the status message
      * @param gameId  the game id
      * @return the player iterable
