@@ -141,3 +141,17 @@ npm start
 <a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
 </p>
 
+# :rocket: Well, what is next?
+As the app currently only support entering the game for once, which means if you existing the browser, you will lose chat infomation that you previously see. Thus one future direction is to add an "resume game" feature, that allows a user to exist and resume game with previous chat history.
+
+Another feature that can potentially be added is to allow user to login, and save games. Rightnow the game is one time only, next time you will need to create a new game. 
+
+Additionally, there are some small features that can be considered:
+- Allow user to upload their own avatar rather than using randomized avatar;
+- Add animation for different dices;
+- Add NPCs;
+- Allow user to roll a dice privately...
+
+<p align="right">
+<a href = "https://github.com/CS601-F21/side-project-mialsy#side-project---coc-game-helper" title = "back to top">⬆️</a>
+</p>
